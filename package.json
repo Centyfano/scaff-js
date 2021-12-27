@@ -1,0 +1,29 @@
+{
+  "name": "scaff-js",
+  "alias": "sf",
+  "version": "1.0.0",
+  "description": "CLI interface for scaffolding Node.js applications",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./commands.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Centyfano/scaff-js.git"
+  },
+  "keywords": [
+    "scaffold"
+  ],
+  "author": "Centyfano Arnold",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Centyfano/scaff-js/issues"
+  },
+  "homepage": "https://github.com/Centyfano/scaff-js#readme",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "inquirer": "^8.2.0"
+  }
+}
