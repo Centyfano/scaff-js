@@ -9,6 +9,7 @@ program
 	.name("sf")
 	// .alias("sf")
 	.description("Scaffold a Node.js app");
+
 let author;
 
 program

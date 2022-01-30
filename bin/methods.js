@@ -2,8 +2,6 @@ const fs = require("fs"),
 	path = require("path"),
 	{ URL } = require("url"),
 	{ exec } = require("child_process");
-    
-
 class Scaff {
 	constructor(dir, arg) {
 		this.dirName = dir;
@@ -26,7 +24,8 @@ class Scaff {
 
 	/**
 	 * @method createServerName()
-	 * @description Appends .js to server name file
+	 * @description Appends `.js` to server name file
+	 * @default index.js
 	 * @returns _serverName_.js
 	 */
 	createServerName() {
@@ -53,6 +52,12 @@ class Scaff {
 		}
 	}
 
+	/**
+	 * Check if a git repository URL exists among the options passed, if it is there,
+	 * the URL is appended to the object that will be in the package.json file
+	 * @param {String} repoUrl Git repository URL
+	 * @returns String
+	 */
 	checkRepo(repoUrl) {
 		if (repoUrl) {
 			const repository = {};
@@ -118,13 +123,18 @@ class Scaff {
 	writes() {
 		try {
 			const writes = new Promise((res, rej) => {
-				res(console.log("done"));
+				res("installing");
 				rej("could not complete");
 			});
 
 			writes
 				// Create package.json
-				.then(() => fs.writeFileSync(`${this.dirName}/package.json`, this.createJson()))
+				.then(() =>
+					fs.writeFileSync(
+						`${this.dirName}/package.json`,
+						this.createJson(),
+					),
+				)
 				.then(() => {
 					const wf = this.args.webFramework,
 						nm = this.args.nodemon,
@@ -135,7 +145,7 @@ class Scaff {
 
 					// run npm install
 					let npm_run = exec(query, { cwd: this.dirName });
-					npm_run.stdout.on("data", (data) => console.info(data));
+					npm_run.stdout.on("data", (data) => console.info("done"));
 
 					npm_run.stderr.on("data", (err) => {
 						console.error(`stderr: ${err}`);
@@ -144,8 +154,7 @@ class Scaff {
 				.then(() => {
 					const serverjs =
 						this.args.webFramework === "express"
-                            ? 
-                            `const express = require('express'), 
+							? `const express = require('express'), 
     app = express();
 
 app.get("/", (req, res, next) =>{
