@@ -13,9 +13,9 @@ Scaff-js can then be used in any directory in the bash script to scaffold a proj
 
 ### Commands
 
-> Generate new application
+**Generate new application**
 
-`sf new` <_app-name_>` `<_options_>` `
+> `sf new` <_app-name_>` `<_options_>` `
 
 ### Options
 
