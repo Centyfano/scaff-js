@@ -1,11 +1,14 @@
 # Scaff-js
 
-This package is used for scaffolding Node.js applications, with basic packages such as express and nodemon.
+This package is used for scaffolding Node.js applications, with it installing basic packages such as express and nodemon.
 
 ### Installation
 
-The package is installed as a global package using the command  
-`npm i -g scaff-js`
+The package is installed as a global package using the command
+
+```
+npm i -g scaff-js
+```
 
 ## Usage
 
