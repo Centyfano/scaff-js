@@ -2,10 +2,12 @@ const fs = require("fs"),
 	path = require("path"),
 	{ URL } = require("url"),
 	{ exec } = require("child_process");
+const ora = require("ora");
 class Scaff {
 	constructor(dir, arg) {
 		this.dirName = dir;
 		this.args = arg;
+		this.returnDir();
 		this.writeFiles();
 	}
 
@@ -17,9 +19,13 @@ class Scaff {
 		try {
 			const dirName = this.dirName;
 			if (!fs.existsSync(dirName)) fs.mkdirSync(dirName);
+			return dirName;
 		} catch (error) {
 			throw error;
 		}
+	}
+	returnDir() {
+		return this.dirName;
 	}
 
 	/**
@@ -116,14 +122,16 @@ class Scaff {
 			const jsonPackage = JSON.stringify(jsPackage, null, 4);
 			return jsonPackage;
 		} catch (error) {
-			throw err;
+			throw error;
 		}
 	}
+
+	spinner = ora(`Installing app-`); //${this.returnDir()}
 
 	writes() {
 		try {
 			const writes = new Promise((res, rej) => {
-				res("installing");
+				res(this.spinner.start());
 				rej("could not complete");
 			});
 
@@ -138,16 +146,21 @@ class Scaff {
 				.then(() => {
 					const wf = this.args.webFramework,
 						nm = this.args.nodemon,
+						/** webframework_query */
 						wf_q = `npm i ${wf}`,
+						/** nodemon_query */
 						nm_q = `npm i -D nodemon`;
 
 					let query = nm ? wf_q.concat(";", nm_q) : wf_q;
 
 					// run npm install
 					let npm_run = exec(query, { cwd: this.dirName });
-					npm_run.stdout.on("data", (data) => console.info("done"));
+					npm_run.stdout.on("data", (data) => {});
+					npm_run.stdout.once("end", () => {
+						this.spinner.succeed("Finished");
+					});
 
-					npm_run.stderr.on("data", (err) => {
+					npm_run.stderr.on("err", (err) => {
 						console.error(`stderr: ${err}`);
 					});
 				})

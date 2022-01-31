@@ -1,7 +1,3 @@
-// const { default: ora } = require("ora");
+const ora = require("ora");
 
-// const { default: ora } = require("ora");
-exports.Ora = require("ora");
-// const ora = this.Ora;
-
-const ora = this.Ora();
+const spinner = ora("hello").start();
