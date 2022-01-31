@@ -3,7 +3,7 @@ const fs = require("fs"),
 	{ URL } = require("url"),
 	{ exec } = require("child_process");
 const ora = require("ora");
-class Scaff {
+class Scaffold {
 	constructor(dir, arg) {
 		this.dirName = dir;
 		this.args = arg;
@@ -214,4 +214,4 @@ app.listen(PORT, ()=>console.info(\`app-${this.dirName} listening on port \${POR
 		// console.log(this);
 	}
 }
-module.exports = Scaff;
+module.exports = Scaffold;

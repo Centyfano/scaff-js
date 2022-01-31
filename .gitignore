@@ -2,3 +2,4 @@ node_modules/
 help/
 test.js
 spinner.js
+config/config.json
