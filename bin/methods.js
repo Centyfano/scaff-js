@@ -7,7 +7,6 @@ class Scaff {
 	constructor(dir, arg) {
 		this.dirName = dir;
 		this.args = arg;
-		this.returnDir();
 		this.writeFiles();
 	}
 
@@ -23,9 +22,6 @@ class Scaff {
 		} catch (error) {
 			throw error;
 		}
-	}
-	returnDir() {
-		return this.dirName;
 	}
 
 	/**
@@ -126,12 +122,12 @@ class Scaff {
 		}
 	}
 
-	spinner = ora(`Installing app-`); //${this.returnDir()}
+	spinner = ora(); //${this.returnDir()}
 
 	writes() {
 		try {
 			const writes = new Promise((res, rej) => {
-				res(this.spinner.start());
+				res(this.spinner.start(`Installing \`app-${this.dirName}\``));
 				rej("could not complete");
 			});
 
@@ -157,7 +153,9 @@ class Scaff {
 					let npm_run = exec(query, { cwd: this.dirName });
 					npm_run.stdout.on("data", (data) => {});
 					npm_run.stdout.once("end", () => {
-						this.spinner.succeed("Finished");
+						this.spinner.succeed(
+							`Installed! cd to app-${this.dirName}/`,
+						);
 					});
 
 					npm_run.stderr.on("err", (err) => {
