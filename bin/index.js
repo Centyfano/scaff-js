@@ -50,7 +50,7 @@ program
 		"Server name to be used e.g. index.js",
 	)
 	.option("-p   --port <port>", "Port number the apps to run on")
-	.option("-nm  --nodemon <trueOrFalse>", "Use nodemon", true)
+	.option("-nm  --nodemon <trueOrFalse>", "Use nodemon")
 	.action((app) => {
 		writeConfig(app);
 	});

@@ -37,6 +37,9 @@ class Config {
 	writeFile(params) {
 		/** Create file, write contents passed in params */
 		if (!this.jsonExists) {
+			!fs.existsSync(this.jsonPath)
+				? fs.mkdirSync(path.join(__dirname, "config"))
+				: "";
 			const jsonConfig = JSON.stringify(params);
 			fs.writeFileSync(this.jsonPath, jsonConfig);
 		} else {
